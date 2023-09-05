@@ -28,9 +28,10 @@ function printProgress(progress) {
         new Intl.NumberFormat().format(allCombinations.length * BigInt(costPerTicket))
     }`);
 
+    const allCombinationsIterator = allCombinations.bitwiseIterator();
     let totalBonus = 0n;
     for(let i = 0n; i < allCombinations.length; i++) {
-        const comb = allCombinations.nth(i);
+        const comb = allCombinationsIterator.next().value;
         const matchedNumbers = comb.filter(n => randomNumbers.includes(n)).length;
         const matchedSpecialNumber = comb.includes(randomSpecialNumber) ? 1 : 0;
         const prizeKey = `${matchedNumbers}:${matchedSpecialNumber}`;
